@@ -23,6 +23,12 @@
                 border: none;
                 font-size: 20px;
                 font-weight: bold;
+                transition: 0.4s;
+            }
+
+            button:hover {
+                background-color: gray;
+                color: white;
             }
 
             .top-nav-bar {
@@ -63,8 +69,8 @@
     </head>
     <body style="margin:0">
         <div class="top-nav-bar">
-            <button>Sign Up</button>
-            <button>Log In</button>
+            <a href="login-signup.html?form=signup"><button>Sign up</button></a>
+            <a href="login-signup.html"><button>Log in</button></a>
         </div>
         <div class="beggining-img-container">
             <img class="beggining-img" src="images/beggining-img.png" alt="" width="100%">
