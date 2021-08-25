@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hardest Snake Game</title>
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+            * {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            h1 {
+                color: white;
+                font-size: 75px;
+                text-align: center;
+            }
+
+            button {
+                width: 200px;
+                height: 100px;
+                background-color: white;
+                border: none;
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+            .top-nav-bar {
+                background-color: gray;
+                overflow: hidden;
+            }
+
+            .top-nav-bar button {
+                width: 75px;
+                height: 25px;
+
+                float: right;
+                background-color: gray;
+                font-size: 15px;
+            }
+
+            .top-nav-bar button:hover {
+                background-color: rgb(70, 70, 70);
+            }
+
+            .beggining-img-container {
+                position: relative;
+            }
+
+            .beggining-subcontainer {
+                position: absolute;
+                top: 25vw;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .beggining-game-description {
+                text-align: center;
+                color: white;
+                font-size: 30px;
+            }
+        </style>
+    </head>
+    <body style="margin:0">
+        <div class="top-nav-bar">
+            <button>Sign Up</button>
+            <button>Log In</button>
+        </div>
+        <div class="beggining-img-container">
+            <img class="beggining-img" src="images/beggining-img.png" alt="" width="100%">
+            <div class="beggining-subcontainer">
+                <h1>Hardest Snake Game</h1>
+                <p class="beggining-game-description">Smaller snake, bigger terrain<br>every food adds wall</p>
+                <div style="height: 100px; width: 80%; margin: 50px auto 0; display: flex; justify-content: space-between;">
+                    <a href="https://hardest-snake-game.jelka33.repl.co"><button>Play Now</button></a>
+                    <a href="https://hardest-snake-game.jelka33.repl.co"><button style="vertical-align: top;">View Code<br>on Github</button></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
