@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Hardest Snake Game</title>
+        <title>Leaderboard | Hardest Snake Game</title>
         <meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -62,10 +62,42 @@
                 transform: translate(-50%, -50%);
             }
 
-            .beggining-game-description {
-                text-align: center;
+            .leaderboard-container {
+                display: table;
+                margin: 0 auto;
+            }
+
+            .tg th{
+                border-color: white;
+                border-style: solid;
+                border-width: 1px;
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                font-weight: normal;
+                overflow: hidden;
+                padding: 10px 5px;
+                word-break: normal;
+
+                font-weight: bold;
                 color: white;
-                font-size: 30px;
+                text-align: center;
+                vertical-align: top;
+            }
+
+            .tg td{
+                border-color: white;
+                border-style: solid;
+                border-width: 1px;
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                overflow: auto;
+                padding: 10px 5px;
+                height: 16px;
+
+                text-align: left;
+                word-break: break-all;
+                color: white;
+                vertical-align: top;
             }
         </style>
     </head>
@@ -78,11 +110,20 @@
         <div class="beggining-img-container">
             <img class="beggining-img" src="images/beggining-img.png" alt="" width="100%">
             <div class="beggining-subcontainer">
-                <h1>Hardest Snake Game</h1>
-                <p class="beggining-game-description">Smaller snake, bigger terrain<br>every food adds wall</p>
-                <div style="height: 100px; width: 80%; margin: 50px auto 0; display: flex; justify-content: space-between;">
-                    <a href="https://hardest-snake-game.jelka33.repl.co"><button>Play Now</button></a>
-                    <a href="https://hardest-snake-game.jelka33.repl.co"><button style="vertical-align: top;">View Code<br>on Github</button></a>
+                <h1>Leaderboard</h1>
+                <div class="leaderboard-container">
+                    <table class="tg">
+                        <thead>
+                          <tr>
+                            <th>Rank</th>
+                            <th>Username</th>
+                            <th>Best Score</th>
+                            <th>Resolution</th>
+                          </tr>
+                        </thead>
+                        <tbody id="leaderboard-body">
+                        </tbody>
+                        </table>
                 </div>
             </div>
         </div>
@@ -107,6 +148,24 @@
                         }
                     }
                 });
+            });
+
+            $.getJSON("https://hardest-snake-game-test.jelka33.repl.co/get-leaderboard", function(data){
+                var table = document.getElementById("leaderboard-body");
+                var rows = [];
+                var cells = {};
+
+                for(var i = 0; i < data.numvalues; i++){
+                    rows[i] = table.insertRow();
+                    cells[i] = {};
+                    for(var j = 0; j < 4; j++){
+                        cells[i][j] = rows[i].insertCell();
+                    }
+                    cells[i][0].innerHTML = data[i]["rank"];
+                    cells[i][1].innerHTML = data[i]["username"];
+                    cells[i][2].innerHTML = data[i]["best-score"];
+                    cells[i][3].innerHTML = data[i]["resolution"];
+                }
             });
         </script>
     </body>
