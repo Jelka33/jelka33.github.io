@@ -8,9 +8,40 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		
 		<style>
+            * {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
 			.container {
 				position: relative;
 			}
+
+            #profileUsername {
+                position: absolute;
+				top: 5%;
+				right: 5%;
+                background-color: transparent;
+                color: white;
+                z-index: 1;
+            }
+
+            #title1 {
+                position: absolute;
+                top: 15%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 85px;
+                z-index: 1;
+            }
+
+            #title2 {
+                position: absolute;
+                top: 25%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 85px;
+                z-index: 1;
+            }
 			
 			#playBtn {
 				position: absolute;
@@ -154,6 +185,16 @@
 				height: 10.672%;
 				z-index: 1;
 			}
+
+            #toMainPageBtn {
+				position: absolute;
+				top: 5%;
+				left: 7%;
+				transform: translate(-50%, -50%);
+				width: 5.208%;
+				height: 4.63%;
+				z-index: 1;
+			}
 			
 			#playBtn:hover {
 				transition: transform 0.2s;
@@ -206,6 +247,11 @@
 			}
 			
 			#playAgainBtn:hover {
+				transition: transform 0.2s;
+				transform: translate(-50%, -50%) scale(1.15) perspective(10px);
+			}
+
+            #toMainPageBtn:hover {
 				transition: transform 0.2s;
 				transform: translate(-50%, -50%) scale(1.15) perspective(10px);
 			}
@@ -272,6 +318,10 @@
 			<canvas id="gameCanvas" style="display:block; background-color:#000000;">
 				Your browser don't support canvas
 			</canvas>
+            <a href="/hardest-snake-game/"><button class="button" id="toMainPageBtn">Main Page</button></a>
+            <div id="profileUsername"></div>
+            <h1 id="title1" style="color: #800000;">HARDEST</h1>
+            <h1 id="title2" style="color: #808080;">SNAKE GAME</h1>
 			<button class="button" id="playBtn" onclick="run_game()">Run Game</button>
 			<button class="button" id="settingsBtn" onclick="show_settings()">Settings</button>
 			<button class="button" id="fromGametoMainMenuBtn" onclick="keycode = 27">Main Menu</button>
@@ -345,6 +395,9 @@
 			var is_gameover_drawn = false;
 			var is_best_score = false;
 			var is_mob = detectMob();
+            document.getElementById("profileUsername").innerHTML =
+                ((window.localStorage.getItem("hsgProfileUsername") != undefined || window.localStorage.getItem("hsgProfileUsername") != "") ?
+                    "User: " + window.localStorage.getItem("hsgProfileUsername") : "GUEST");
 			
 			var gameover_font = "30px Arial";
 			var score_font = "25px Arial";
@@ -616,6 +669,10 @@
 				
 				document.getElementById("playBtn").style.display = "initial";
 				document.getElementById("settingsBtn").style.display = "initial";
+                document.getElementById("toMainPageBtn").style.display = "initial";
+                document.getElementById("profileUsername").style.display = "initial";
+                document.getElementById("title1").style.display = "initial";
+                document.getElementById("title2").style.display = "initial";
 				var nodes = document.getElementById("controlBtns").getElementsByTagName('*');
 				for(var i = 0; i < nodes.length; i++){
 					nodes[i].disabled = true;
@@ -636,7 +693,7 @@
 				document.getElementById("playAgainBtn").style.display = "none";
 				document.getElementById("playAgainBtn").disabled = true;
 				
-				_textalign = ctx.textAlign;
+				/*_textalign = ctx.textAlign;
 				ctx.textAlign = "center";
 				
 				ctx.font = "85px Arial";
@@ -645,12 +702,16 @@
 				ctx.fillStyle = "#808080";
 				ctx.fillText("SNAKE GAME", width / 2, height / 3);
 				
-				ctx.textAlign = _textalign;
+				ctx.textAlign = _textalign;*/
 			}
 			
 			function show_settings(){
 				document.getElementById("playBtn").style.display = "none";
 				document.getElementById("settingsBtn").style.display = "none";
+                document.getElementById("toMainPageBtn").style.display = "none";
+                document.getElementById("profileUsername").style.display = "none";
+                document.getElementById("title1").style.display = "none";
+                document.getElementById("title2").style.display = "none";
 				var nodes = document.getElementById("controlBtns").getElementsByTagName('*');
 				for(var i = 0; i < nodes.length; i++){
 					nodes[i].disabled = true;
@@ -677,6 +738,10 @@
 			function run_game(){
 				document.getElementById("playBtn").style.display = "none";
 				document.getElementById("settingsBtn").style.display = "none";
+                document.getElementById("toMainPageBtn").style.display = "none";
+                document.getElementById("profileUsername").style.display = "none";
+                document.getElementById("title1").style.display = "none";
+                document.getElementById("title2").style.display = "none";
 				var nodes = document.getElementById("controlBtns").getElementsByTagName('*');
 				for(var i = 0; i < nodes.length; i++){
 					nodes[i].disabled = false;
@@ -797,27 +862,29 @@
 					x_speed = 0;
 					y_speed = 0;
 					
-					var objData = new Object();
-					objData.username = "a";
-					objData.score = snake_lenght - 1;
-					objData.resolution = width + "x" + height;
-					objData.difficulty = difficulty.toLowerCase();
-					objData.ismob = is_mob;
-					console.log(objData);
-					
-					$.ajax({
-						type: 'post',
-						url: 'https://hardest-snake-game-test.jelka33.repl.co/evaluate-score',
-						data: JSON.stringify(objData),
-						dataType: "json",
-						contentType: "application/json; charset=utf-8",
-						success: function(data){
-							console.log(data.msg);
-							if(data.msg == "Best score"){
-								is_best_score = true;
-							}
-						}
-					});
+                    if(window.localStorage.getItem("hsgProfileUsername") != undefined || window.localStorage.getItem("hsgProfileUsername") != ""){
+                        var objData = new Object();
+                        objData.username = window.localStorage.getItem("hsgProfileUsername");
+                        objData.score = snake_lenght - 1;
+                        objData.resolution = width + "x" + height;
+                        objData.difficulty = difficulty.toLowerCase();
+                        objData.ismob = is_mob;
+                        console.log(objData);
+                        
+                        $.ajax({
+                            type: 'post',
+                            url: 'https://hardest-snake-game-test.jelka33.repl.co/evaluate-score',
+                            data: JSON.stringify(objData),
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            success: function(data){
+                                console.log(data.msg);
+                                if(data.msg == "Best score"){
+                                    is_best_score = true;
+                                }
+                            }
+                        });
+                    }
 					window.requestAnimationFrame(game_over_screen);
 					return;
 				}
