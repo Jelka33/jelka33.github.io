@@ -57,14 +57,28 @@
 
             .beggining-subcontainer {
                 position: absolute;
-                top: 25vw;
+                top: 100px;
                 left: 50%;
-                transform: translate(-50%, -50%);
+                padding-bottom: 50px;
+                transform: translate(-50%, 0%);
             }
 
             .leaderboard-container {
                 display: table;
                 margin: 0 auto;
+            }
+
+            .leaderboard-btn {
+                height: 50px;
+                width: 100px;
+                border: 5px solid #ffffff;
+                background-color: black;
+                color: white;
+            }
+
+            .leaderboard-btn:hover {
+                background-color: gray;
+                color: white;
             }
 
             .tg th{
@@ -101,16 +115,24 @@
             }
         </style>
     </head>
-    <body style="margin:0">
+    <body style="margin:0; background: black;">
         <div class="top-nav-bar">
             <a href="login-signup.html?form=signup" id="signup-btn"><button>Sign up</button></a>
             <a href="login-signup.html" id="login-btn"><button>Log in</button></a>
             <a href="leaderboard.html"><button>Leaderboard</button></a>
         </div>
         <div class="beggining-img-container">
-            <img class="beggining-img" src="images/beggining-img.png" alt="" width="100%">
             <div class="beggining-subcontainer">
                 <h1>Leaderboard</h1>
+                <div style="display: table; margin: 0px auto 10px;">
+                    <button class="leaderboard-btn" style="margin-right: 50px;" onclick="ismob = false; updateLeaderboard();">PC</button>
+                    <button class="leaderboard-btn" onclick="ismob = true; updateLeaderboard();">Mobile</button>
+                </div>
+                <div style="display: table; margin: 0px auto 50px;">
+                    <button class="leaderboard-btn" style="margin-right: 50px;" onclick="changeDifficulty('easy'); updateLeaderboard();">Easy</button>
+                    <button class="leaderboard-btn" style="margin-right: 50px;" onclick="changeDifficulty('normal'); updateLeaderboard();">Normal</button>
+                    <button class="leaderboard-btn" onclick="changeDifficulty('hard'); updateLeaderboard();">Hard</button>
+                </div>
                 <div class="leaderboard-container">
                     <table class="tg">
                         <thead>
@@ -123,11 +145,14 @@
                         </thead>
                         <tbody id="leaderboard-body">
                         </tbody>
-                        </table>
+                    </table>
                 </div>
             </div>
         </div>
         <script>
+            var ismob = false;
+            var difficulty = "easy";
+
             $.getJSON("https://api.ipify.org?format=json", function(ipify){
                 var objData = new Object();
                 objData.username = window.localStorage.getItem('hsgProfileUsername');
@@ -150,23 +175,57 @@
                 });
             });
 
-            $.getJSON("https://hardest-snake-game-test.jelka33.repl.co/get-leaderboard", function(data){
-                var table = document.getElementById("leaderboard-body");
-                var rows = [];
-                var cells = {};
+            updateLeaderboard();
+            function updateLeaderboard(){
+                $.getJSON("https://hardest-snake-game-test.jelka33.repl.co/get-leaderboard", function(data){
+                    var table = document.getElementById("leaderboard-body");
+                    var rows = [];
+                    var cells = {};
+                    var values = [];
+                    var empty = true;
+                    $("#leaderboard-body tr").remove();
 
-                for(var i = 0; i < data.numvalues; i++){
-                    rows[i] = table.insertRow();
-                    cells[i] = {};
-                    for(var j = 0; j < 4; j++){
-                        cells[i][j] = rows[i].insertCell();
+                    for(var i = 0; i < data.numvalues; i++){
+                        if(ismob){
+                            if(data["mobile"][i]["difficulty"] == difficulty){
+                                values[0] = data["mobile"][i]["rank"];
+                                values[1] = data["mobile"][i]["username"];
+                                values[2] = data["mobile"][i]["best-score"];
+                                values[3] = data["mobile"][i]["resolution"];
+                                empty = false;
+                            }
+                            else{
+                                empty = true;
+                            }
+                        }
+                        else{
+                            if(data["pc"][i]["difficulty"] == difficulty){
+                                values[0] = data["pc"][i]["rank"];
+                                values[1] = data["pc"][i]["username"];
+                                values[2] = data["pc"][i]["best-score"];
+                                values[3] = data["pc"][i]["resolution"];
+                                empty = false;
+                            }
+                            else{
+                                empty = true;
+                            }
+                        }
+
+                        if(!empty){
+                            rows[i] = table.insertRow();
+                            for(var j = 0; j < 4; j++){
+                                cells[i] = {};
+                                cells[i][j] = rows[i].insertCell();
+                                cells[i][j].innerHTML = values[j];
+                            }
+                        }
                     }
-                    cells[i][0].innerHTML = data[i]["rank"];
-                    cells[i][1].innerHTML = data[i]["username"];
-                    cells[i][2].innerHTML = data[i]["best-score"];
-                    cells[i][3].innerHTML = data[i]["resolution"];
-                }
-            });
+                });
+            }
+
+            function changeDifficulty(diff){
+                difficulty = diff;
+            }
         </script>
     </body>
 </html>
