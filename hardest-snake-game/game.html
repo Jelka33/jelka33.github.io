@@ -396,8 +396,8 @@
 			var is_best_score = false;
 			var is_mob = detectMob();
             document.getElementById("profileUsername").innerHTML =
-                ((window.localStorage.getItem("hsgProfileUsername") != undefined || window.localStorage.getItem("hsgProfileUsername") != "") ?
-                    "User: " + window.localStorage.getItem("hsgProfileUsername") : "GUEST");
+                (window.localStorage.getItem("hsgProfileUsername") != null && window.localStorage.getItem("hsgProfileUsername") != "") ?
+                    "User: " + window.localStorage.getItem("hsgProfileUsername") : "User: GUEST";
 			
 			var gameover_font = "30px Arial";
 			var score_font = "25px Arial";
