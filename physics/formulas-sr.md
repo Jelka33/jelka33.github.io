@@ -1,5 +1,3 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.0.0/mermaid.min.js"></script>
-
 # Fizičke formule
 ## 6. razred
 
@@ -9,8 +7,8 @@
 ### Oscilatorno kretanje
 Elongacija: <br>
 &nbsp;&nbsp;&nbsp;&nbsp;- Trenutna udaljenost od ravnotežnog položaja <br>
-&nbsp;&nbsp;&nbsp;&nbsp;- Oznaka: $x$ <br>
-&nbsp;&nbsp;&nbsp;&nbsp;- Merna jedinica: $[x] = 1m$ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;- Oznaka: ![](https://render.githubusercontent.com/render/math?math=x) <!--$x$--> <br>
+&nbsp;&nbsp;&nbsp;&nbsp;- Merna jedinica: ![](https://render.githubusercontent.com/render/math?math=[x]%20=%201m) <!--$[x] = 1m$--> <br>
 
 Amplituda: <br>
 &nbsp;&nbsp;&nbsp;&nbsp;- Maksimalna udaljenost od ravnotežnog položaja <br>
@@ -34,7 +32,7 @@ Frekvencija: <br>
 &nbsp;&nbsp;&nbsp;&nbsp;$$T = \frac{1}{\nu}$$ $$\nu = \frac{1}{t}$$ $$1Hz = \frac{1}{s}$$ <br>
 
 ### Zakon o održanju mehaničke energije pri oscilovanju tela
-![Mehanicka Energija Chart](images/mehanicka-energija-chart.png)
+![Mehanicka Energija Chart](images/mehanicka-energija-chart.png) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$E_k = \frac{m\times v}{2}$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$E_p = m\times g\times h$ <br>
 
 ### Brzina mehaničkog talasa
