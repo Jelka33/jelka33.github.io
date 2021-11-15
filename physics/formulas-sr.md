@@ -34,11 +34,7 @@ Frekvencija: <br>
 &nbsp;&nbsp;&nbsp;&nbsp;$$T = \frac{1}{\nu}$$ $$\nu = \frac{1}{t}$$ $$1Hz = \frac{1}{s}$$ <br>
 
 ### Zakon o održanju mehaničke energije pri oscilovanju tela
-```mermaid
-graph TB
-A[Mehanička energija] --> B[Kinetička energija]
-A --> C[Gravitaciona potencijalna energija]
-```
+![Mehanicka Energija Chart](images/mehanicka-energija-chart.png)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$E_k = \frac{m\times v}{2}$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$E_p = m\times g\times h$ <br>
 
 ### Brzina mehaničkog talasa
