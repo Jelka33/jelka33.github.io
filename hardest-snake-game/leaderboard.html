@@ -14,13 +14,13 @@
 
             h1 {
                 color: white;
-                font-size: 75px;
+                font-size: 3.906vw;
                 text-align: center;
             }
 
             button {
-                width: 200px;
-                height: 100px;
+                width: 10.417vw;
+                height: 10.672vh;
                 background-color: white;
                 border: none;
                 font-size: 20px;
@@ -57,7 +57,7 @@
 
             .beggining-subcontainer {
                 position: absolute;
-                top: 100px;
+                top: 10.277vh;
                 left: 50%;
                 padding-bottom: 50px;
                 transform: translate(-50%, 0%);
@@ -69,8 +69,8 @@
             }
 
             .leaderboard-btn {
-                height: 50px;
-                width: 100px;
+                width: 10.672vh;
+                height: 5.139vh;
                 border: 5px solid #ffffff;
                 background-color: black;
                 color: white;
@@ -117,9 +117,12 @@
     </head>
     <body style="margin:0; background: black;">
         <div class="top-nav-bar">
+            <a href="/hardest-snake-game/" id="logout-btn"><button onclick="logout()">Logout</button></a>
+            <a href="account-info.html" id="acc-info-btn"><button></button></a>
             <a href="login-signup.html?form=signup" id="signup-btn"><button>Sign up</button></a>
             <a href="login-signup.html" id="login-btn"><button>Log in</button></a>
             <a href="leaderboard.html"><button>Leaderboard</button></a>
+            <a href="/hardest-snake-game/"><button style="float: left;">Hardest Snake Game</button></a>
         </div>
         <div class="beggining-img-container">
             <div class="beggining-subcontainer">
@@ -153,26 +156,33 @@
             var ismob = false;
             var difficulty = "easy";
 
-            $.getJSON("https://api.ipify.org?format=json", function(ipify){
-                var objData = new Object();
-                objData.username = window.localStorage.getItem('hsgProfileUsername');
-                objData.token = window.localStorage.getItem('hsgProfileToken');
-                objData.ip = ipify.ip;
+            document.getElementById('acc-info-btn').style.display = "none";
+            document.getElementById('logout-btn').style.display = "none";
 
-                $.ajax({
-                    type: 'post',
-                    url: 'https://hardest-snake-game-test.jelka33.repl.co/login-user-bysession',
-                    data: JSON.stringify(objData),
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    success: function(data){
-                        console.log(data.msg);
-                        if(data.msg == "Login: success"){
-                            document.getElementById('signup-btn').style.display = "none";
-                            document.getElementById('login-btn').style.display = "none";
-                        }
+            var objData = new Object();
+            objData.username = window.localStorage.getItem('hsgProfileUsername');
+            objData.token = window.localStorage.getItem('hsgProfileToken');
+
+            $.ajax({
+                type: 'post',
+                url: 'https://hardest-snake-game-test.jelka33.repl.co/login-user-bysession',
+                data: JSON.stringify(objData),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function(data){
+                    console.log(data.msg);
+                    if(data.msg == "Login: success"){
+                        document.getElementById('signup-btn').style.display = "none";
+                        document.getElementById('login-btn').style.display = "none";
+                        document.getElementById('acc-info-btn').style.display = "initial";
+                        document.getElementById('acc-info-btn').getElementsByTagName('BUTTON')[0].innerHTML = "User: " + window.localStorage.getItem('hsgProfileUsername');
+                        document.getElementById('logout-btn').style.display = "initial";
                     }
-                });
+                    else{
+                        window.localStorage.removeItem('hsgProfileUsername');
+                        window.localStorage.removeItem('hsgProfileToken');
+                    }
+                }
             });
 
             updateLeaderboard();
@@ -225,6 +235,11 @@
 
             function changeDifficulty(diff){
                 difficulty = diff;
+            }
+            
+            function logout(){
+                window.localStorage.removeItem('hsgProfileUsername');
+                window.localStorage.removeItem('hsgProfileToken');
             }
         </script>
     </body>

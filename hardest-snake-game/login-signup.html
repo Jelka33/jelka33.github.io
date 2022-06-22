@@ -6,12 +6,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script>
-            var clientIp;
-            $.getJSON("https://api.ipify.org?format=json", function(data){
-                clientIp = data.ip;
-            });
-        </script>
 
         <style>
             * {
@@ -120,10 +114,26 @@
             #signup-form {
                 left: 450px;
             }
+
+            #toMainPageBtn {
+                width: auto;
+                height: 25px;
+                background-color: transparent;
+                color: black;
+                font-weight: bold;
+                font-size: 15px;
+                border: none;
+                transition: 0.4s;
+            }
+
+            #toMainPageBtn:hover {
+                color: white;
+            }
         </style>
     </head>
     <body>
         <div class="main-container">
+            <a href="/hardest-snake-game/"><button id="toMainPageBtn">Hardest Snake Game</button></a>
             <div class="form-box">
                 <div class="button-box">
                     <div id="btns-background"></div>
@@ -172,15 +182,17 @@
                 $.ajax({
                     type: 'post',
                     url: 'https://hardest-snake-game-test.jelka33.repl.co/login-user',
-                    data: $('#login-form').serialize() + '&ip=' + clientIp,
+                    data: $('#login-form').serialize(),
                     success: function(data){
-                        console.log(data);
+                        console.log(data.msg);
                         if(data.msg == "Logged in"){
                             window.localStorage.setItem('hsgProfileToken', data.token);
                             $.each($('#login-form').serializeArray(), function(i, field){
                                 if(field.name == "username")
                                     window.localStorage.setItem('hsgProfileUsername', field.value);
+                                    window.localStorage.setItem("hsgProfileToken", data.token);
                             });
+                            window.location.href = '/hardest-snake-game/';
                         }
                     }
                 });
@@ -189,15 +201,17 @@
                 $.ajax({
                     type: 'post',
                     url: 'https://hardest-snake-game-test.jelka33.repl.co/signup-user',
-                    data: $('#signup-form').serialize() + '&ip=' + clientIp,
+                    data: $('#signup-form').serialize(),
                     success: function(data){
-                        console.log(data);
+                        console.log(data.msg);
                         if(data.msg == "Signed up successfully"){
                             window.localStorage.setItem('hsgProfileToken', data.token);
                             $.each($('#signup-form').serializeArray(), function(i, field){
                                 if(field.name == "username")
                                     window.localStorage.setItem('hsgProfileUsername', field.value);
+                                    window.localStorage.setItem("hsgProfileToken", data.token);
                             });
+                            window.location.href = '/hardest-snake-game/';
                         }
                     }
                 });
