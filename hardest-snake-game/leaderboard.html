@@ -23,7 +23,7 @@
                 height: 10.672vh;
                 background-color: white;
                 border: none;
-                font-size: 20px;
+                font-size: 1.04vw;
                 font-weight: bold;
                 transition: 0.4s;
             }
@@ -63,13 +63,26 @@
                 transform: translate(-50%, 0%);
             }
 
+            .pc-mob-buttons {
+                display: flex;
+                justify-content: space-evenly;
+                margin: 0px auto 20px;
+            }
+
+            .difficulty-buttons {
+                display: flex;
+                justify-content: space-between;
+                width: 110%;
+                margin: 0px auto 50px;
+            }
+
             .leaderboard-container {
                 display: table;
                 margin: 0 auto;
             }
 
             .leaderboard-btn {
-                width: 10.672vh;
+                width: 10.672vw;
                 height: 5.139vh;
                 border: 5px solid #ffffff;
                 background-color: black;
@@ -86,7 +99,7 @@
                 border-style: solid;
                 border-width: 1px;
                 font-family: Arial, sans-serif;
-                font-size: 14px;
+                font-size: 0.73vw;
                 font-weight: normal;
                 overflow: hidden;
                 padding: 10px 5px;
@@ -103,15 +116,50 @@
                 border-style: solid;
                 border-width: 1px;
                 font-family: Arial, sans-serif;
-                font-size: 14px;
+                font-size: 0.73vw;
                 overflow: auto;
                 padding: 10px 5px;
-                height: 16px;
+                height: 0.83vw;
 
                 text-align: left;
                 word-break: break-all;
                 color: white;
                 vertical-align: top;
+            }
+
+            @media only screen and (max-width: 480px) {
+                button {
+                    font-size: 3.5vw;
+                }
+
+                .top-nav-bar button {
+                    font-size: 3.125vw;
+                }
+
+                .pc-mob-buttons {
+                    margin: 0 0 30px;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .difficulty-buttons {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                }
+
+                .leaderboard-btn {
+                    width: 100%;
+                    margin: 0 0 5px;
+                }
+
+                .tg th {
+                    font-size: 3vw;
+                }
+
+                .tg td {
+                    font-size: 3vw;
+                }
             }
         </style>
     </head>
@@ -127,13 +175,13 @@
         <div class="beggining-img-container">
             <div class="beggining-subcontainer">
                 <h1>Leaderboard</h1>
-                <div style="display: table; margin: 0px auto 10px;">
-                    <button class="leaderboard-btn" style="margin-right: 50px;" onclick="ismob = false; updateLeaderboard();">PC</button>
+                <div class="pc-mob-buttons">
+                    <button class="leaderboard-btn" onclick="ismob = false; updateLeaderboard();">PC</button>
                     <button class="leaderboard-btn" onclick="ismob = true; updateLeaderboard();">Mobile</button>
                 </div>
-                <div style="display: table; margin: 0px auto 50px;">
-                    <button class="leaderboard-btn" style="margin-right: 50px;" onclick="changeDifficulty('easy'); updateLeaderboard();">Easy</button>
-                    <button class="leaderboard-btn" style="margin-right: 50px;" onclick="changeDifficulty('normal'); updateLeaderboard();">Normal</button>
+                <div class="difficulty-buttons">
+                    <button class="leaderboard-btn" onclick="changeDifficulty('easy'); updateLeaderboard();">Easy</button>
+                    <button class="leaderboard-btn" onclick="changeDifficulty('normal'); updateLeaderboard();">Normal</button>
                     <button class="leaderboard-btn" onclick="changeDifficulty('hard'); updateLeaderboard();">Hard</button>
                 </div>
                 <div class="leaderboard-container">
