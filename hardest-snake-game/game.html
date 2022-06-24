@@ -3,9 +3,19 @@
 	<head>
 		<title>Hardest Snake Game</title>
 		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-BDXDQC3273"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-BDXDQC3273');
+        </script>
 		
 		<style>
             * {
@@ -257,7 +267,7 @@
 			}
 			
 			.button {
-				border: 10px solid #ffffff;
+				border: 0.52vw solid #ffffff;
 				background-color: transparent;
 				color: white;
                 min-width: 100px;
@@ -310,6 +320,22 @@
 				right: 10%;
 				width: 80%;
 				height: 10%;
+			}
+
+			@media only screen and (max-width: 480px) {
+				#toMainPageBtn {
+					left: 15%;
+				}
+
+				#title1 {
+					font-size: 14vw;
+				}
+
+				#title2 {
+					width: 100%;
+					text-align: center;
+					font-size: 14vw;
+				}
 			}
 		</style>
 	</head>
