@@ -223,7 +223,7 @@
 
             $.ajax({
                 type: 'post',
-                url: 'https://hardest-snake-game-test.jelka33.repl.co/login-user-bysession',
+                url: 'https://hardest-snake-game.jelka33.repl.co/login-user-bysession',
                 data: JSON.stringify(objData),
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
@@ -245,7 +245,7 @@
 
             updateLeaderboard();
             function updateLeaderboard(){
-                $.getJSON("https://hardest-snake-game-test.jelka33.repl.co/get-leaderboard", function(data){
+                $.getJSON("https://hardest-snake-game.jelka33.repl.co/get-leaderboard", function(data){
                     var table = document.getElementById("leaderboard-body");
                     var rows = [];
                     var cells = {};
