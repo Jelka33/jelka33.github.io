@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ImgJcryppt - Image Encryption</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+        <link rel="icon" href="images/img-jcryppt-favicon.png" type="image/x-icon">
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-54PFGDNSH0"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-54PFGDNSH0');
+        </script>
+
+        <style>
+            * {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            html {
+                font-size: 1vw;
+                scroll-behavior: smooth;
+            }
+
+            body {
+                margin: 0;
+            }
+
+            .navbar {
+                padding: 0.5rem 0 0;
+                width: 100%;
+                height: 3.5rem;
+                display: flex;
+                justify-content: space-between;
+                background: none;
+            }
+
+            .navbar .title {
+                display: flex;
+                padding: 0 5rem;
+            }
+
+            .navbar p {
+                margin: 0;
+                padding: 1rem 0;
+                font-size: 1.5rem;
+                font-weight: bold;
+            }
+
+            .navbar span {
+                margin: 0;
+                padding: 1rem 5rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                font-size: 1rem;
+            }
+
+            .navbar a {
+                text-decoration: none;
+                color: black;
+            }
+
+            .hero-part {
+                width: 100%;
+                display: flex;
+                justify-content: space-evenly;
+            }
+
+            .head-text {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .head-text h1 {
+                margin: 1rem 0;
+                font-size: 3rem;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            .head-text p {
+                margin: 0.5rem 0;
+                font-size: 1.5rem;
+            }
+
+            .hero-img {
+                width: 26.67rem;
+            }
+
+            .action-buttons {
+                margin: 4rem 0 0;
+                display: flex;
+                justify-content: center;
+            }
+
+            .action-buttons span {
+                width: 5rem;
+            }
+
+            .action-buttons button {
+                width: 15rem;
+                height: 4rem;
+                border: none;
+                font-size: 1.5rem;
+                font-weight: bold;
+            }
+
+            .button1 {
+                position: relative;
+                background: #00ee95;
+            }
+
+            .button1 button {
+                position: relative;
+                background: transparent;
+                color: white;
+                transition: box-shadow 0.5s;
+            }
+
+            .button1 .button1-cover {
+                position: absolute;
+                top: 0%;
+                left: 50%;
+                width: 0;
+                height: 100%;
+                z-index: 0;
+                background: #9afed9;
+                transition: all 0.5s;
+            }
+
+            .button1:hover button {
+                color: black;
+                box-shadow: 0 1px 15px 1px #777777;
+            }
+
+            .button1:hover .button1-cover{
+                left: 0;
+                width: 100%;
+            }
+
+            .button2 {
+                position: relative;
+                background: #9afed9;
+            }
+
+            .button2 button {
+                position: relative;
+                background: transparent;
+                color: black;
+                transition: box-shadow 0.5s;
+            }
+
+            .button2 .button2-cover {
+                position: absolute;
+                top: 0%;
+                left: 50%;
+                width: 0;
+                height: 100%;
+                z-index: 0;
+                background: #00ee95;
+                transition: all 0.5s;
+            }
+
+            .button2:hover button {
+                color: white;
+                box-shadow: 0 1px 15px 1px #777777;
+            }
+
+            .button2:hover .button2-cover{
+                left: 0;
+                width: 100%;
+            }
+
+            .encryption-part {
+                margin: 4rem 0 0;
+                background: whitesmoke;
+            }
+
+            .encryption-part h1 {
+                margin: 0;
+                padding: 1rem 0;
+                font-size: 2.75rem;
+                text-align: center;
+            }
+
+            .container {
+                margin: 0 auto;
+                width: 75%;
+                display: flex;
+                justify-content: space-evenly;
+                background: white;
+            }
+
+            .original {
+                padding: 1rem 0 0;
+            }
+
+            .original p {
+                margin: 0;
+            }
+
+            .original [type="file"] {
+                height: 0;  
+                width: 0;
+                overflow: hidden;
+            }
+
+            .original-img {
+                margin: 0 0 1rem;
+                width: 9.17rem;
+                height: auto;
+                min-height: 5rem;
+                display: flex;
+                background-color: #9afed9;
+            }
+
+            .original-img label {
+                width: 100%;
+                height: auto;
+                min-height: 5rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .original-img img {
+                width: 100%;
+                height: auto;
+            }
+
+            .middle .loading {
+                margin: 0.5rem 0;
+                display: none;
+                justify-content: center;
+            }
+
+            .middle-uptext {
+                margin: 1rem 0 0;
+            }
+
+            .middle-downtext {
+                margin: 0 0 1rem;
+                font-size: 0.8rem;
+            }
+
+            .key-input {
+                border: none;
+                padding: 0 5%;
+                width: 90%;
+                height: 1.5rem;
+                background: #00ee95;
+                color: black;
+                font-size: 1rem;
+            }
+
+            .encrypt-button {
+                margin: 0.5rem 25%;
+                border: none;
+                width: 50%;
+                height: 2rem;
+                background: #00ee95;
+                font-size: 1rem;
+                transition: background 0.5s, box-shadow 0.5s;
+            }
+
+            .encrypt-button:hover {
+                background: #9afed9;
+                box-shadow: 0 1px 15px 1px black;
+            }
+
+            .encrypted-img {
+                margin: 0 0 1rem;
+                width: 9.17rem;
+                height: auto;
+            }
+
+            .encrypted-img img {
+                width: 100%;
+                height: auto;
+            }
+            
+            .separator {
+                margin: 0;
+                width: 100%;
+                height: 3rem;
+                background: whitesmoke;
+            }
+
+            .decryption-part {
+                margin: 0;
+                padding: 0 0 2rem;
+                background: whitesmoke;
+            }
+
+            .decryption-part h1 {
+                margin: 0;
+                padding: 1rem 0;
+                font-size: 2.75rem;
+                text-align: center;
+            }
+
+            .middle-errortext {
+                display: none;
+                margin: 0.2rem 0;
+                color: red;
+                font-size: 0.8rem;
+            }
+
+            .howit-works {
+                background: white;
+            }
+
+            .howit-works h1 {
+                margin: 0;
+                padding: 1rem 0;
+                font-size: 2.75rem;
+                text-align: center;
+            }
+
+            .howit-works h2 {
+                margin: 0;
+                padding: 1rem 0;
+                font-size: 2.4rem;
+                text-align: center;
+            }
+
+            .paragraph {
+                margin: 1rem auto;
+                width: auto;
+                display: flex;
+                justify-content: center;
+            }
+
+            .paragraph p {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                font-size: 2rem;
+                vertical-align: middle;
+            }
+
+            .paragraph img {
+                width: 26rem;
+                height: auto;
+            }
+
+            .tryit-now {
+                margin: 1rem 0 2rem;
+            }
+
+            .tryit-now h1 {
+                font-size: 2.4rem;
+                text-align: center;
+            }
+
+            .tryit-now .button-container {
+                display: flex;
+                justify-content: center;
+            }
+
+            .tryit-now button {
+                width: 15rem;
+                height: 4rem;
+                border: none;
+                font-size: 1.5rem;
+                font-weight: bold;
+            }
+
+            .footer {
+                display: flex;
+                justify-content: space-evenly;
+                width: 100%;
+                height: 5rem;
+                background: whitesmoke;
+            }
+
+            .footer .title {
+                display: flex;
+            }
+
+            .footer .title img {
+                padding: 1rem 0;
+                width: auto;
+                height: calc(100% - 2rem);
+            }
+
+            @media only screen and (max-width: 450px) {
+                html {
+                    font-size: 2.75vw;
+                }
+
+                .navbar .title {
+                    padding: 0 2rem;
+                }
+
+                .navbar span {
+                    padding: 1rem 2rem;
+                    font-size: 1.5rem;
+                }
+
+                .hero-part {
+                    margin: 15rem 0 20rem;
+                }
+
+                .head-text {
+                    padding: 0 1rem;
+                }
+
+                .head-text h1 {
+                    font-size: 5rem;
+                }
+
+                .head-text p {
+                    font-size: 2rem;
+                }
+
+                .head-text p {
+                    text-align: center;
+                }
+
+                .hero-img {
+                    display: none;
+                }
+
+                .action-buttons {
+                    margin: 4rem 5rem 0;
+                    flex-direction: column;
+                }
+
+                .action-buttons button {
+                    width: 100%;
+                    height: 6rem;
+                    font-size: 2rem;
+                }
+
+                .action-buttons span {
+                    height: 2rem;
+                }
+
+                .container {
+                    flex-direction: column;
+                }
+
+                .original p {
+                    font-size: 2rem;
+                    text-align: center;
+                }
+
+                .original-img {
+                    margin: 0 auto 1rem;
+                    width: 15rem;
+                }
+
+
+                .middle {
+                    padding: 0 1rem;
+                }
+
+                .middle-uptext {
+                    font-size: 2rem;
+                    text-align: center;
+                }
+
+                .middle-downtext {
+                    font-size: 1.6rem;
+                }
+
+                .middle-errortext {
+                    margin: 0.5rem 0;
+                    font-size: 2rem;
+                    text-align: center;
+                }
+
+                .key-input {
+                    height: 2.5rem;
+                    font-size: 2rem;
+                }
+
+                .encrypt-button {
+                    height: 3rem;
+                    font-size: 2rem;
+                }
+
+                .encrypted p {
+                    font-size: 2rem;
+                    text-align: center;
+                }
+
+                .encrypted-img {
+                    margin: 0 auto 1rem;
+                    width: 15rem;
+                }
+
+                .howit-works h1 {
+                    font-size: 5rem;
+                }
+
+                .howit-works h2 {
+                    font-size: 2.75rem;
+                }
+
+                .paragraph {
+                    flex-direction: column;
+                }
+
+                .paragraph p {
+                    text-align: center;
+                }
+
+                .paragraph img {
+                    margin: 0 auto;
+                }
+
+                .tryit-now h1 {
+                    font-size: 2.75rem;
+                }
+
+                .tryit-now .button-container {
+                    display: block;
+                    margin: 0 5rem;
+                }
+
+                .tryit-now button {
+                    width: 100%;
+                    height: 6rem;
+                    font-size: 2rem;
+                }
+
+                .footer {
+                    flex-direction: column;
+                    height: auto;
+                }
+
+                .footer .title {
+                    justify-content: space-evenly;
+                }
+
+                .footer h1 {
+                    margin: auto 0;
+                    height: min-content;
+                    font-size: 3rem;
+                }
+
+                .footer p {
+                    text-align: center;
+                    font-size: 1.5rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="navbar">
+            <div class="title">
+                <img src="images/img-jcryppt-favicon.png" alt="ImgJcryppt logo">
+                <p>ImgJcryppt</p>
+            </div>
+            <span><a href="https://github.com/Jelka33/img-jcryppt">View code on Github</a></span>
+        </div>
+        <div class="content">
+            <div class="hero-part">
+                <div class="head-text">
+                    <h1>ImgJcryppt</h1>
+                    <p>Easy to use, free, open-source image encryption software.</p>
+                    <p>Secure any image you want in just a few clicks!</p>
+                </div>
+                <img class="hero-img" src="images/img-jcryppt-hero.png" alt="ImgJcryppt logo">
+            </div>
+            <div class="action-buttons">
+                <div class="button1">
+                    <div class="button1-cover"></div>
+                    <a href="#encrypt"><button>Encrypt now</button></a>
+                </div>
+                <span></span>
+                <div class="button2">
+                    <div class="button2-cover"></div>
+                    <a href="#howit-works"><button>See how it works</button></a>
+                </div>
+            </div>
+            <div class="encryption-part">
+                <a name="encrypt"></a>
+                <h1>Encrypt your images</h1>
+                <div class="container">
+                    <div class="original">
+                        <p>Original image</p>
+                        <input type="file" accept="image/*" name="original" id="original">
+                        <div class="original-img">
+                            <label for="original">
+                                <p>Click to select image</p>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="middle">
+                        <p class="middle-uptext">Key for encrypting image</p>
+                        <p class="middle-downtext">(you use this key to decrypt image <br> so make sure you save it!)</p>
+                        <input type="text" name="key" placeholder="Key" class="key-input">
+                        <p class="middle-errortext">Error occurred, please try again</p>
+                        <button class="encrypt-button" onclick="encrypt()">Encrypt</button>
+                        <div class="loading">
+                            <img src="images/loading.gif" alt="Loading animation">
+                        </div>
+                    </div>
+                    <div class="encrypted">
+                        <p>Encrypted image</p>
+                        <div class="encrypted-img"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="separator"></div>
+            <div class="decryption-part">
+                <h1>Decrypt your images</h1>
+                <div class="container">
+                    <div class="original">
+                        <p>Encrypted image</p>
+                        <input type="file" accept="image/*" name="encrypted" id="encrypted">
+                        <div class="original-img">
+                            <label for="encrypted">
+                                <p>Click to select image</p>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="middle">
+                        <p class="middle-uptext">Key for decrypting image</p>
+                        <input type="text" name="key" placeholder="Key" class="key-input">
+                        <p class="middle-errortext">Wrong key or image is damaged</p>
+                        <p class="middle-errortext">Error occurred, please try again</p>
+                        <button class="encrypt-button" onclick="decrypt()">Decrypt</button>
+                        <div class="loading">
+                            <img src="images/loading.gif" alt="Loading animation">
+                        </div>
+                    </div>
+                    <div class="encrypted">
+                        <p>Decrypted image</p>
+                        <div class="encrypted-img"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="howit-works">
+                <a name="howit-works"></a>
+                <h1>How it works</h1>
+                <h2>Encryption</h2>
+                <div class="paragraph">
+                    <p>Upload image you want to encrypt</p>
+                    <img src="images/img-jcryppt-upload.png" alt="Uploading image to cloud">
+                </div>
+                <br>
+                <div class="paragraph">
+                    <p>Secure it with secret key and click encrypt</p>
+                    <img src="images/img-jcryppt-encrypt.png" alt="Entering password">
+                </div>
+                <br>
+                <div class="paragraph">
+                    <p>Download your new, secured image!</p>
+                    <img src="images/img-jcryppt-download.png" alt="Downloading encrypted image">
+                </div>
+                <h2>Decryption</h2>
+                <div class="paragraph">
+                    <p>Upload your secured image<br>
+                       Enter key you used for encrypting<br>
+                       And then magic, you will get original<br>
+                       image back, without loss in quality!</p>
+                       <img src="images/img-jcryppt-upload-enc.png" alt="Uploading encrypted image">
+                </div>
+            </div>
+            <div class="tryit-now">
+                <h1>Try it now!</h1>
+                <div class="button-container">
+                    <div class="button1">
+                        <div class="button1-cover"></div>
+                        <a href="#encrypt"><button>Start encrypting</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="title">
+                <img src="images/img-jcryppt-favicon.png" alt="ImgJcryppt logo">
+                <h1>ImgJcryppt</h1>
+            </div>
+            <div class="copyright-notice">
+                <p>Copyright &copy; 2022, Jelka33<br>
+                   All rights reserved.<br>
+                   For more information read <a href="LICENSE.txt">license</a>.</p>
+            </div>
+            <div class="author">
+                <!--TODO: logo here-->
+                <p>Proudly built by Jelka</p>
+            </div>
+        </div>
+        <script>
+            const origImg1 = document.getElementById('original');
+            const previewImg1 = document.getElementsByClassName('original-img')[0].querySelector(':scope > label');
+            const encImg = document.getElementsByClassName('encrypted-img')[0];
+            const loader1 = document.getElementsByClassName('loading')[0];
+
+            const origImg2 = document.getElementById('encrypted');
+            const previewImg2 = document.getElementsByClassName('original-img')[1].querySelector(':scope > label');
+            const decImg = document.getElementsByClassName('encrypted-img')[1];
+            const loader2 = document.getElementsByClassName('loading')[1];
+
+            origImg1.addEventListener('change', function () {
+                getImgData_enc();
+            });
+
+            origImg2.addEventListener('change', function () {
+                getImgData_dec();
+            });
+
+            function getImgData_enc() {
+                const files = origImg1.files[0];
+                if (files) {
+                    const fileReader = new FileReader();
+                    fileReader.readAsDataURL(files);
+                    fileReader.addEventListener("load", function () {
+                        previewImg1.innerHTML = '<img src="' + this.result + '" />';
+                    });
+                }
+            }
+
+            function getImgData_dec() {
+                const files = origImg2.files[0];
+                if (files) {
+                    const fileReader = new FileReader();
+                    fileReader.readAsDataURL(files);
+                    fileReader.addEventListener("load", function () {
+                        previewImg2.innerHTML = '<img src="' + this.result + '" />';
+                    });
+                }
+            }
+
+
+            function encrypt() {
+                document.getElementsByClassName('middle-errortext')[0].style.display = "none";
+                loader1.style.display = 'flex';
+                encImg.innerHTML = '';
+
+                var data = new FormData();
+                data.append('key', document.getElementsByClassName('key-input')[0].value);
+                data.append('image', origImg1.files[0])
+
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "https://img-jcryppt.jelka33.repl.co/encrypt-img", true);
+                xhr.responseType = 'blob';
+                xhr.send(data);
+
+                xhr.onload = function() {
+                    loader1.style.display = 'none';
+
+                    console.log(`Encrypt answer: ${xhr.status}; ${xhr.statusText}`);
+
+                    if (xhr.status === 200) {
+                        encImg.innerHTML = '<img src="' + URL.createObjectURL(xhr.response) + '" />';
+                    }
+                    else {
+                        document.getElementsByClassName('middle-errortext')[0].style.display = "block";
+                    }
+                }
+
+                xhr.onerror = function() {
+                    loader1.style.display = 'none';
+                    document.getElementsByClassName('middle-errortext')[0].style.display = "block";
+                }
+            }
+
+            function decrypt() {
+                document.getElementsByClassName('middle-errortext')[1].style.display = "none";
+                document.getElementsByClassName('middle-errortext')[2].style.display = "none";
+                loader2.style.display = 'flex';
+                decImg.innerHTML = '';
+
+                var data = new FormData();
+                data.append('key', document.getElementsByClassName('key-input')[1].value);
+                data.append('image', origImg2.files[0])
+
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "https://img-jcryppt.jelka33.repl.co/decrypt-img", true);
+                xhr.responseType = 'blob';
+                xhr.send(data);
+
+                xhr.onload = function() {
+                    loader2.style.display = 'none';
+
+                    console.log(`Encrypt answer: ${xhr.status}; ${xhr.statusText}`);
+
+                    if (xhr.status === 200) {
+                        decImg.innerHTML = '<img src="' + URL.createObjectURL(xhr.response) + '" />';
+                    }
+                    else if (xhr.status === 403) {
+                        document.getElementsByClassName('middle-errortext')[1].style.display = 'block';
+                    }
+                    else {
+                        document.getElementsByClassName('middle-errortext')[2].style.display = "block";
+                    }
+                }
+
+                xhr.onerror = function() {
+                    loader2.style.display = 'none';
+                    document.getElementsByClassName('middle-errortext')[2].style.display = "block";
+                }
+            }
+        </script>
+    </body>
+</html>
